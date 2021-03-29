@@ -1,11 +1,8 @@
-import dotenv from "dotenv";
 import firebase from "firebase/app";
 import "firebase/auth";
 
-dotenv.config();
-
 export const config = {
-  apiKey: process.env.FB_AUTH_KEY,
+  apiKey: import.meta.env.VITE_FB_AUTH_KEY,
   authDomain: "uniarena-b8d07.firebaseapp.com",
   databaseURL: "https://uniarena-b8d07-default-rtdb.firebaseio.com",
   projectId: "uniarena-b8d07",

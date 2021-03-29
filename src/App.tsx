@@ -1,8 +1,9 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import LoginScreen from "./views/Login";
-import HomeScreen from "./views/Home";
+import LoginScreen from "@/views/Login";
+import HomeScreen from "@/views/Home";
+import GuardedRoute from "@/GuardedRoute";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         }}
       />
       <Route path="/login" exact component={LoginScreen} />
-      <Route path="/home" component={HomeScreen} />
+      <GuardedRoute path="/home" component={HomeScreen} />
     </Switch>
   );
 }

@@ -1,21 +1,32 @@
 import { types, Instance, flow, toGenerator } from "mobx-state-tree";
-import { FirebaseAuth, GoogleProvider } from "@/firebase";
+import firebase, { FirebaseAuth, GoogleProvider } from "@/firebase";
 
 export const User = types
   .model({
-    nickname: types.optional(types.string, ""),
-    level: types.optional(types.number, 0),
-    /* googleData: types.maybeNull(types.frozen<FirebaseAuthTypes.User>()), */
+    googleData: types.maybeNull(types.frozen<firebase.auth.UserCredential>()),
   })
   .actions((self) => {
     return {
       googleLogin: flow(function* () {
-        const { user } = yield* toGenerator(
-          FirebaseAuth.signInWithPopup(GoogleProvider)
-        );
-        console.log(user?.displayName);
+        try {
+          const data = yield* toGenerator(
+            FirebaseAuth.signInWithPopup(GoogleProvider)
+          );
+          self.googleData = data;
+        } catch (error) {
+          console.error(error);
+        }
+      }),
+      logOut: flow(function* () {
+        yield FirebaseAuth.signOut();
+        self.googleData = null;
       }),
     };
-  });
+  })
+  .views((self) => ({
+    get isAuthenticated() {
+      return self.googleData ? true : false;
+    },
+  }));
 
 export type UserType = Instance<typeof User>;

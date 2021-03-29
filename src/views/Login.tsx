@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
 import * as Icons from "@/components/icons";
 import { useStore } from "@/models";
@@ -6,9 +7,12 @@ import { observer } from "mobx-react-lite";
 
 function Login() {
   const store = useStore();
+  const history = useHistory();
 
   const doLogin = () => {
-    store.user.googleLogin();
+    store.user.googleLogin().then(() => {
+      history.push("/home");
+    });
   };
 
   return (

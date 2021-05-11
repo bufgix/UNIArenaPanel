@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import * as Icons from "@/components/icons";
 import { useStore } from "@/models";
@@ -15,9 +15,9 @@ export default function Header() {
     <header className="text-gray-200 body-font bg-primary">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <nav className="flex lg:w-2/5 flex-wrap items-center text-base md:ml-auto">
-          <a className="mr-5 hover:text-white">First Link</a>
-          <a className="mr-5 hover:text-white">Second Link</a>
-          <a className="mr-5 hover:text-white">Third Link</a>
+          <Link className="mr-5 hover:text-white" to={"/home/new"}>
+            Soru oluştur
+          </Link>
         </nav>
 
         <a

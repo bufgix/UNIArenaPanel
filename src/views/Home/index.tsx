@@ -3,6 +3,7 @@ import { Switch, Route, useRouteMatch } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 
 import { Header } from "@/components";
+import NewQuestion from "./NewQuestion";
 
 function Home() {
   let { path } = useRouteMatch();
@@ -12,7 +13,7 @@ function Home() {
       <Header />
       <Switch>
         <Route path={`${path}/new`}>
-          <h1>new questin</h1>
+          <NewQuestion />
         </Route>
       </Switch>
     </>

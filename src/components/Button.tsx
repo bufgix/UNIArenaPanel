@@ -2,13 +2,19 @@ import React from "react";
 
 type Props = {
   text: string;
-  className: string;
-};
+} & React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
 
-export default function Button({ text, className }: Props) {
+export default function Button({ text, className, ...props }: Props) {
   return (
-    <div>
-      <button className={className}>{text}</button>
-    </div>
+    <button className={className} {...props}>
+      {text}
+    </button>
   );
 }
+
+Button.defaultProps = {
+  type: "button",
+} as Props;

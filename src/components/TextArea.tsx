@@ -1,20 +1,23 @@
 import React from "react";
+import cn from "classnames";
+import { FieldError } from "react-hook-form";
 
+type Props = { error?: FieldError } & React.HTMLProps<HTMLTextAreaElement>;
 
-type Props = {
-  className: string;
-  placeholder: string;
-  rows: number;
-};
-
-export default function textArea({ className, rows, placeholder }: Props) {
-  return (
-    <div>
-      <textarea
-        rows={rows}
-        className={className}
-        placeholder={placeholder}
-      ></textarea>
-    </div>
-  );
-}
+export default React.forwardRef(
+  ({ className, error, ...props }: Props, ref: any) => {
+    return (
+      <>
+        <textarea
+          ref={ref}
+          className={cn(
+            "border focus:outline-none focus:ring-2 focus:border-transparent w-full my-4 ",
+            className
+          )}
+          {...props}
+        ></textarea>
+        {error && <span>{error.message}</span>}
+      </>
+    );
+  }
+);

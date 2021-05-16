@@ -5,7 +5,7 @@ type Props = {
   values: string[];
 };
 
-export default function selectMenu({ className,values }: Props) {
+export default function SelectMenu({ className, values }: Props) {
   return (
     <div>
       <select className={className}>

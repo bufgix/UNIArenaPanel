@@ -5,7 +5,7 @@ type Props = {} & React.HTMLProps<HTMLFormElement>;
 
 export default function Form({ children, className, ...props }: Props) {
   return (
-    <form className={cn("mx-auto overflow-hidden", className)} {...props}>
+    <form className={cn("mx-2 overflow-hidden", className)} {...props}>
       {children}
     </form>
   );

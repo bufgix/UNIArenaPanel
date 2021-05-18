@@ -7,12 +7,10 @@ type Props = {
 
 export default function SelectMenu({ className, values }: Props) {
   return (
-    <div>
-      <select className={className}>
-        {values.map((i) => {
-          return <option key={i}>{i}</option>;
-        })}
-      </select>
-    </div>
+    <select className={className}>
+      {values.map((i) => {
+        return <option key={i}>{i}</option>;
+      })}
+    </select>
   );
 }

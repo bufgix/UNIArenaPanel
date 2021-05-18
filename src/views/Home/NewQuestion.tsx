@@ -26,21 +26,26 @@ export default function NewQuestion() {
   return (
     <div>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <div className="md:flex items-center justify-center ">
+        <div className="md:flex  justify-center ">
           <div className="m-2 md:w-1/2">
             <TextArea
               {...register("questionText", {
-                required: { message: "Soru boş olamaz", value: true },
+                required: {
+                  message: "Soru Kısmı Boş Bırakılamaz",
+                  value: true,
+                },
               })}
-              rows={4}
+              rows={15}
               placeholder="Soruyu Buraya Yazınız"
               error={errors.questionText}
             />
+          </div>
+          <div className="m-2 md:w-1/2">
             <TextArea
               {...register("a", {
-                maxLength: {
-                  message: "20 karakterden fazla olamaz",
-                  value: 20,
+                required: {
+                  message: "A şıkkı boş bırakılamaz",
+                  value: true,
                 },
               })}
               rows={2}
@@ -48,9 +53,15 @@ export default function NewQuestion() {
               error={errors.a}
             />
             <TextArea
-              {...register("b")}
+              {...register("b", {
+                required: {
+                  message: "B şıkkı boş bırakılamaz",
+                  value: true,
+                },
+              })}
               rows={2}
               placeholder="B Şıkkını Yazınız"
+              error={errors.b}
             />
             <TextArea
               {...register("c")}
@@ -62,23 +73,24 @@ export default function NewQuestion() {
               rows={2}
               placeholder="D Şıkkını Yazınız"
             />
+
+            <br />
+            <SelectMenu
+              className="ring-1 ring-primary p-2 m-2"
+              values={["JavaScript", "c#", "Pyhton", "OOP"]}
+            />
+
+            <SelectMenu
+              className="ring-1 ring-primary p-2 m-2"
+              values={["5 Puan", "10 Puan", "15 Puan", "20 Puan"]}
+            />
+
+            <Button
+              type="submit"
+              text="Soru Ekle"
+              className="bg-primary text-white px-4 py-2 rounded m-2"
+            />
           </div>
-
-          <SelectMenu
-            className="ring-1 ring-primary p-2"
-            values={["JavaScript", "c#", "Pyhton", "OOP"]}
-          />
-
-          <SelectMenu
-            className="ring-1 ring-primary p-2"
-            values={["5 Puan", "10 Puan", "15 Puan", "20 Puan"]}
-          />
-
-          <Button
-            type="submit"
-            text="Soru Ekle"
-            className="bg-primary text-white px-4 py-2 rounded"
-          />
         </div>
       </Form>
     </div>

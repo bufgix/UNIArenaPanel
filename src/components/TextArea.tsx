@@ -11,12 +11,17 @@ export default React.forwardRef(
         <textarea
           ref={ref}
           className={cn(
-            "border focus:outline-none focus:ring-2 focus:border-transparent w-full my-5 ",
+            "border focus:outline-none focus:ring-primary focus:ring-4 focus:border-transparent w-full my-5 ",
             className
           )}
           {...props}
         ></textarea>
-        {error && <span className="text-red-500 font-bold italic ">{error.message} !</span>}
+        {error && (
+          <span className="text-red-500 font-bold italic ">
+            {error.message} !
+          </span>
+        )}
+
       </>
     );
   }

@@ -73,18 +73,21 @@ export default function NewQuestion() {
               rows={2}
               placeholder="D Şıkkını Yazınız"
             />
-
             <br />
+            Doğru Cevap:
+            <SelectMenu
+              className="ring-1 ring-primary p-2 m-2"
+              values={["A", "B", "C", "D"]}
+            />
+            Kategori:
             <SelectMenu
               className="ring-1 ring-primary p-2 m-2"
               values={["JavaScript", "c#", "Pyhton", "OOP"]}
             />
-
             <SelectMenu
               className="ring-1 ring-primary p-2 m-2"
               values={["5 Puan", "10 Puan", "15 Puan", "20 Puan"]}
             />
-
             <Button
               type="submit"
               text="Soru Ekle"

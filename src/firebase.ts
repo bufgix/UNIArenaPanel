@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 export const config = {
   apiKey: import.meta.env.VITE_FB_AUTH_KEY,
@@ -16,4 +17,5 @@ firebase.initializeApp(config);
 
 export default firebase;
 export const FirebaseAuth = firebase.auth();
+export const FirebaseFirestore = firebase.firestore();
 export const GoogleProvider = new firebase.auth.GoogleAuthProvider();

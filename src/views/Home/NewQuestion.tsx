@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import Form from "@/components/Form";
 import { TextArea, SelectMenu, Button } from "@/components";
+import { FirebaseFirestore } from "@/firebase";
 
 type Inputs = {
   questionText: string;
@@ -22,6 +23,16 @@ export default function NewQuestion() {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
   };
+
+  useEffect(() => {
+    FirebaseFirestore.collection("tags")
+      .get()
+      .then((tags) => {
+        tags.forEach((tag) => {
+          console.log(tag.data());
+        });
+      });
+  }, []);
 
   return (
     <div>

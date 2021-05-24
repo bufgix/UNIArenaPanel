@@ -7,7 +7,6 @@ export type Tag = {
 };
 
 export function getTags() {
-  console.log("hey");
   return FirebaseFirestore.collection("tags")
     .get()
     .then((tags) => {
@@ -17,4 +16,11 @@ export function getTags() {
       });
       return t;
     });
+}
+
+export function saveQuestion(data: any) {
+  return FirebaseFirestore.collection("questions").add({
+    ...data,
+    tag: data.tag.ref,
+  });
 }

@@ -1,4 +1,5 @@
 import React from "react";
+import cn from "classnames";
 
 type Props = {
   text: string;
@@ -9,7 +10,7 @@ type Props = {
 
 export default function Button({ text, className, ...props }: Props) {
   return (
-    <button className={className} {...props}>
+    <button className={cn("disabled:opacity-50 ", className)} {...props}>
       {text}
     </button>
   );

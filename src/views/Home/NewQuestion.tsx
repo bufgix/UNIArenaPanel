@@ -1,10 +1,10 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 import Form from "@/components/Form";
 import { TextArea, SelectMenu, Button, Loading } from "@/components";
-import { getTags } from "@/firestore";
+import { getTags, saveQuestion } from "@/firestore";
 
 type Inputs = {
   questionText: string;
@@ -22,15 +22,19 @@ export default function NewQuestion() {
     register,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<Inputs>();
+
+  const { data: dataTag, isLoading: loadingTag } = useQuery("tags", getTags);
+
+  const questionMutation = useMutation((data: Inputs) => {
+    const tag = dataTag?.find((t) => t.name === data.tag);
+    return saveQuestion({ ...data, tag });
+  });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
-    reset();
+    questionMutation.mutate(data);
   };
-
-  const { data: dataTag, isLoading: loadingTag } = useQuery("tags", getTags);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="h-full">
@@ -133,6 +137,7 @@ export default function NewQuestion() {
             </div>
           </div>
           <Button
+            disabled={questionMutation.isLoading}
             type="submit"
             text="Soru Ekle"
             className="bg-primary text-white py-2 rounded w-full"

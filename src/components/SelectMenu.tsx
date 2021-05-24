@@ -8,18 +8,20 @@ type Item = {
 type Props = {
   className: string;
   values?: Item[];
-};
+} & React.HTMLProps<HTMLSelectElement>;
 
-export default forwardRef(({ className, values }: Props, ref: any) => {
-  return (
-    <select className={className} ref={ref}>
-      {values?.map((i) => {
-        return (
-          <option value={i.value} key={i.label}>
-            {i.label}
-          </option>
-        );
-      })}
-    </select>
-  );
-});
+export default forwardRef(
+  ({ className, values, ...props }: Props, ref: any) => {
+    return (
+      <select className={className} ref={ref} {...props}>
+        {values?.map((i) => {
+          return (
+            <option value={i.value} key={i.label}>
+              {i.label}
+            </option>
+          );
+        })}
+      </select>
+    );
+  }
+);

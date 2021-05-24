@@ -19,6 +19,7 @@ function Login() {
       .googleLogin()
       .then(() => {
         history.push("/home");
+        location.reload();
       })
       .finally(() => setLoading(false));
   };

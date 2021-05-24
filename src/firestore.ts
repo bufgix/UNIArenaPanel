@@ -7,6 +7,7 @@ export type Tag = {
 };
 
 export function getTags() {
+  console.log("hey");
   return FirebaseFirestore.collection("tags")
     .get()
     .then((tags) => {

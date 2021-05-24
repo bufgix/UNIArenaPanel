@@ -2,16 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import { persist } from "mst-persist";
-import {
-  useQuery,
-  useMutation,
-  useQueryClient,
-  QueryClient,
-  QueryClientProvider,
-} from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import "./index.css";
 import App from "./App";
+import "@/firebase";
 import { StoreProvider, initStore } from "@/models";
 
 const store = initStore();

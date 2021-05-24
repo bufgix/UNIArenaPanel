@@ -1,8 +1,10 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useQuery } from "react-query";
 
 import Form from "@/components/Form";
-import { TextArea, SelectMenu, Button, TagSection } from "@/components";
+import { TextArea, SelectMenu, Button, Loading } from "@/components";
+import { getTags } from "@/firestore";
 
 type Inputs = {
   questionText: string;
@@ -10,6 +12,9 @@ type Inputs = {
   b: string;
   c: string;
   d: string;
+  correctAnswer: string;
+  tag: string;
+  point: number;
 };
 
 export default function NewQuestion() {
@@ -17,11 +22,15 @@ export default function NewQuestion() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     console.log(data);
+    reset();
   };
+
+  const { data: dataTag, isLoading: loadingTag } = useQuery("tags", getTags);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className="h-full">
@@ -63,32 +72,63 @@ export default function NewQuestion() {
             error={errors.b}
           />
           <TextArea
-            {...register("c")}
+            {...register("c", {
+              required: {
+                message: "C şıkkı boş bırakılamaz",
+                value: true,
+              },
+            })}
             rows={2}
+            error={errors.c}
             placeholder="C Şıkkını Yazınız"
           />
           <TextArea
-            {...register("d")}
+            {...register("d", {
+              required: {
+                message: "D şıkkı boş bırakılamaz",
+                value: true,
+              },
+            })}
             rows={2}
+            error={errors.d}
             placeholder="D Şıkkını Yazınız"
           />
           <div className="grid grid-flow-col grid-cols-3 ">
             <div className="flex flex-row items-center">
               <span>Doğru Cevap:</span>
               <SelectMenu
+                {...register("correctAnswer")}
                 className="ring-1 ring-primary p-2 m-2 w-full"
-                values={["A", "B", "C", "D"]}
+                values={["A", "B", "C", "D"].map((i) => ({
+                  label: i,
+                  value: i,
+                }))}
               />
             </div>
             <div className="flex flex-row items-center ">
               <span>Categori</span>
-              <TagSection className="w-full" />
+              {!loadingTag ? (
+                <SelectMenu
+                  {...register("tag")}
+                  className="ring-1 ring-primary p-2 m-2 w-full"
+                  values={dataTag?.map((i) => ({
+                    label: i.name,
+                    value: i.name,
+                  }))}
+                />
+              ) : (
+                <Loading className="ml-2" size={30} color="#536DFE" />
+              )}
             </div>
             <div className="flex flex-row items-center">
               <span>Puan:</span>
               <SelectMenu
+                {...register("point")}
                 className="ring-1 ring-primary p-2 m-2 w-full"
-                values={["5 Puan", "10 Puan", "15 Puan", "20 Puan"]}
+                values={[5, 10, 15, 20].map((i) => ({
+                  value: i,
+                  label: `${i} Puan`,
+                }))}
               />
             </div>
           </div>

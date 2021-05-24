@@ -32,7 +32,6 @@ export default function NewQuestion() {
   });
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     questionMutation.mutate(data);
   };
 
